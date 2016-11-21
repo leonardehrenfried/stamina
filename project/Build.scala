@@ -34,6 +34,7 @@ object Build extends Build {
     .aggregate(
       core,
       json,
+      `play-json`,
       testkit
     )
 
@@ -61,6 +62,19 @@ object Build extends Build {
         sprayJsonShapeless
       )
     )
+
+  lazy val `play-json` = Project("stamina-play-json", file("stamina-play-json"))
+    .dependsOn(core)
+    .settings(libSettings: _*)
+    .settings(libraryDependencies ++=
+      compile(
+        playJson
+      ) ++
+      test(
+        scalatest
+      )
+    )
+
 
   lazy val testkit = Project("stamina-testkit", file("stamina-testkit"))
     .dependsOn(core)
